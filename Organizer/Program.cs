@@ -1,17 +1,33 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Organizer
 {
     public class Program
     {
+        private static Stopwatch stopWatch = new Stopwatch();
+        private static ShiftHighestSort mySort = new ShiftHighestSort();
+        private static RotateSort myRotate = new RotateSort();
+
         public static void Main(string[] args)
         {
-            // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
-            Console.WriteLine("Hello World!");
-            ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
-        }
+            Console.WriteLine("How many numbers in list?");
 
+            int amount = Convert.ToInt32(Console.ReadLine());//get number of objects in list
+
+            if (amount > 100)// number bigger than 100 display error
+            {
+                Console.WriteLine("List is to long. List is > 100.");
+            }
+            else//else make and show list
+            {
+                MakeList(amount);
+            }
+
+        }
 
         /* Example of a static function */
 
@@ -20,25 +36,37 @@ namespace Organizer
         /// </summary>
         /// <param name="label">The label for this list</param>
         /// <param name="theList">The list to show</param>
-        public static void ShowList(string label, List<int> theList)
+        public static void MakeList(int amount)//(string label, List<int> theList)
         {
-            int count = theList.Count;
-            if (count > 100)
+            Random randomNumber = new Random();
+            List<int> randomList = new List<int>();
+
+            Console.WriteLine("Unsorted list:");
+            for (int x = 0; x < amount; x++)
             {
-                count = 300; // Do not show more than 300 numbers
+                randomList.Add(randomNumber.Next(-99, 99));// returns random integers >= -99 and < 99
+                Console.WriteLine(randomList[x]);// print random list
             }
-            Console.WriteLine();
-            Console.Write(label);
-            Console.Write(':');
-            for (int index = 0; index < count; index++)
+
+            stopWatch.Start();
+            Console.WriteLine(stopWatch.Elapsed);//test time
+            List<int> sortList = mySort.Sort(randomList); //sort random list
+            Console.WriteLine(stopWatch.Elapsed);
+            stopWatch.Stop();
+
+            Console.WriteLine("Sorted list:");
+            foreach (var num in sortList)// print sorted list
             {
-                if (index % 20 == 0) // when index can be divided by 20 exactly, start a new line
-                {
-                    Console.WriteLine();
-                }
-                Console.Write(string.Format("{0,3}, ", theList[index]));  // Show each number right aligned within 3 characters, with a comma and a space
+                Console.WriteLine(num);
             }
-            Console.WriteLine();
+
         }
+
+        public static void checkList()// number bigger or the same as the on before?
+        {
+
+        }
+
+
     }
 }

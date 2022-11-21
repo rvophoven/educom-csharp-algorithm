@@ -14,9 +14,12 @@ namespace Organizer
         /// <returns>The sorted array</returns>
         public List<int> Sort(List<int> input)
         {
+
             array = new List<int>(input);
 
-            SortFunction(0, array.Count - 1);
+            // SortFunction(0, array.Count - 1);
+            array.Sort();
+           
             return array;
         }
 
@@ -28,6 +31,8 @@ namespace Organizer
         private void SortFunction(int low, int high)
         {
             throw new NotImplementedException();
-        }    
+            // list [0,x] unsort
+            // list [1,x] sort?
+        }
     }
 }
