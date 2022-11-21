@@ -15,11 +15,9 @@ namespace Organizer
         /// <returns>The sorted array</returns>
         public List<int> Sort(List<int> input)
         {
+           array = new List<int>(input);
 
-            array = new List<int>(input);
-
-            // SortFunction(0, array.Count - 1);
-            array.Sort();
+           SortFunction();
            
             return array;
         }
@@ -29,11 +27,10 @@ namespace Organizer
         /// </summary>
         /// <param name="low">De index within this.array to start with</param>
         /// <param name="high">De index within this.array to stop with</param>
-        public List<int> SortFunction(List<int> input)  //int low, int high
+        private void SortFunction()  //int low, int high
         {
-            randomList = new List<int>(input);
-            List<int> sortList = new List<int>();
-
+            randomList = array;
+            
             int i = 1;
 
             while (i < array.Count +1)
@@ -51,7 +48,7 @@ namespace Organizer
                 }
                 i++;
             }
-            return randomList;
+            array =  randomList;
         }
     }
 }

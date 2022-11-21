@@ -34,16 +34,7 @@ namespace Organizer
                 Console.WriteLine(randomList[x]);
             }
 
-            List<int> sortList2 = mySort.SortFunction(randomList);
-
-            Console.WriteLine("Sorted list:");
-
-            for (int x = 0; x < sortList.Count && x < 50; x++)
-            {
-                Console.WriteLine(sortList2[x]);
-            }
-
-
+            checkList(sortList);
 
         }
 
@@ -68,8 +59,24 @@ namespace Organizer
 
         }
 
-        public static void checkList()// number bigger or the same as the on before?
+        public static void checkList(List<int> input)// number bigger or the same as the on before?
         {
+            List<int> sortList = new List<int>(input);
+
+            for (int x = 1; x < sortList.Count; x++)
+            {
+                int indexA = sortList[x];
+                int indexB = sortList[x - 1];
+
+                if (indexA < indexB)
+                {
+                    Console.Write("One number is smaller!");
+                    Console.Write(indexA);
+                    Console.Write(" , ");
+                    Console.WriteLine(indexB);
+
+                }
+            }
 
         }
 
