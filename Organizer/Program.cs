@@ -35,6 +35,12 @@ namespace Organizer
             }
 
             checkList(sortList);
+            
+            List<int> rotateList = myRotate.Sort(randomList);
+
+            Console.WriteLine("Rotate list:");
+            rotateList.ForEach(num => Console.WriteLine(num));
+
 
         }
 
@@ -56,7 +62,6 @@ namespace Organizer
             }
 
             return randomList;
-
         }
 
         public static void checkList(List<int> input)// number bigger or the same as the on before?
@@ -77,7 +82,6 @@ namespace Organizer
 
                 }
             }
-
         }
 
 
