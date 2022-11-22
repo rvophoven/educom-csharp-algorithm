@@ -19,28 +19,31 @@ namespace Organizer
             int amount = Convert.ToInt32(Console.ReadLine());//get number of objects in list
 
             List<int> randomList = MakeList(amount);
+
+            Console.WriteLine("Sort time");
             stopWatch.Start();
-            Console.WriteLine(stopWatch.Elapsed);//test time
             List<int> sortList = mySort.Sort(randomList);
+            Console.WriteLine(stopWatch.Elapsed);
+            stopWatch.Reset();
+
+            checkList(sortList);
+
+            Console.WriteLine("Rotate time");
+            stopWatch.Start();
+            List<int> rotateList = myRotate.Sort(randomList);
             Console.WriteLine(stopWatch.Elapsed);
             stopWatch.Stop();
 
-            Console.WriteLine("First sorted and second unsorted list:");
+            Console.WriteLine("First sorted, second unsorted and third rotated list:");
 
-            for (int x = 0; x < sortList.Count && x < 50 ; x++)
+            for (int x = 0; x < sortList.Count && x < 50; x++)
             {
                 Console.Write(sortList[x]);
                 Console.Write(" , ");
-                Console.WriteLine(randomList[x]);
+                Console.Write(randomList[x]);
+                Console.Write(" , ");
+                Console.WriteLine(rotateList[x]);
             }
-
-            checkList(sortList);
-            
-            List<int> rotateList = myRotate.Sort(randomList);
-
-            Console.WriteLine("Rotate list:");
-            rotateList.ForEach(num => Console.WriteLine(num));
-
 
         }
 

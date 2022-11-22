@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace Organizer
 {
@@ -23,11 +24,12 @@ namespace Organizer
             throw new Exception("array is to short");
 
             Random randomNumber = new Random();// get a random number
-            int number = randomNumber.Next(1, array.Count);
+            int number = randomNumber.Next(1, array.Count);//between 1 and end. no 0.
 
-            //Partitioning(number);
+            //Console.Write("Rotate number: ");//check rotate number but takes takesstopwatch time
+            //Console.WriteLine(array[number]);
 
-            Console.WriteLine(array[number]);
+            Partitioning(number);//partitioning
 
             //SortFunction(0, array.Count - 1);
             return array;
@@ -52,30 +54,24 @@ namespace Organizer
         private void Partitioning(int number)
         {
             randomList = array;
-            int part = array[number];
-            List<int> higher = new List<int>();
+            int part = array[number];//get the number in array
+            List<int> higher = new List<int>();//make 2 listes
             List<int> lower = new List<int>();
 
-            higher.Add(array[number]);
+            higher.Add(array[number]);//start higher at rotation number
+            array.RemoveAt(number);//remove rotation number from list
 
-            //nog aanpassen
             for (int x = 0; x < randomList.Count; x++)
-                {
-              
-
-                    if (indexA <= part)
-                    {
-                        randomList[x] = indexB;
-                        randomList[x + 1] = indexA;
+            {
+                    if (array[x]<= part){//if lower add
+                    lower.Add(array[x]);
+                    }else{              //iff higher add
+                    higher.Add(array[x]);
                     }
-                }
-               
-            
-            array = randomList;
+            }
+            //add together
+            higher.ForEach(item => lower.Add(item));
+            array = lower;
         }
-
-
-
-    
     }
 }
