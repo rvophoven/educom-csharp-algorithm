@@ -10,13 +10,11 @@ namespace BornToMove
     public class Program
     {
         private static Move myMove = new Move();
-        
 
+        //..............................................................................
         public static void Main(string[] args)
         {
-
             Console.WriteLine("Get moving!!!!!!!!!!!");
-
             Console.WriteLine("");
             Console.WriteLine("Do you want a suggestion or to choose?");
             Console.WriteLine("1: Suggestion");
@@ -33,45 +31,51 @@ namespace BornToMove
                 suggestion();
             }else
             {
-                choose();
+               choice = choose();
             }
-            Console.WriteLine("Finished? Then press enter.");
-            Console.ReadLine();
-            rating();
+            
+            if(choice!=0)//get rating if chosen to do a exercise
+            { addRating(choice); }
+            
 
             Console.WriteLine("Thank you for the hard work");
             Console.ReadLine();//hold end
         }
-
+        //..............................................................................
         private static void suggestion()
         {
+            List<int> randomId = myMove.getID();
+            Random randomNumber = new Random();// get a random number
+            int number = randomNumber.Next(1, randomId.Count);
             //get ids and choose a random one
-            int choice = 1;//random id
-            myMove.getExerRow(choice);
+            myMove.getExerRow(number);
         }
-
-        private static void choose()
+        //..............................................................................
+        private static int choose()
         {
             Console.WriteLine("");
             Console.WriteLine("What exercise do you wanna do?");
 
-            Console.WriteLine("0: create exercise");
-            //get exercises from database....
-            Console.WriteLine("Type the number for more information.");
+            Console.WriteLine("Nr:0 Name: create exercise");
+            myMove.getExer();
+            Console.WriteLine("Type the number to start.");
             int choice = Convert.ToInt32(Console.ReadLine());
 
             if(choice == 0)
             {
-                addexer();
+                addExer();
             }
             else
             {
                 //show choice
                 myMove.getExerRow(choice);
+                Console.WriteLine("Finished? Then press enter.");
+                Console.ReadLine();
             }
+            return choice;
         }
-
-        private static void addexer()
+        //..............................................................................
+        private static void addExer()
         {
             Console.WriteLine("Give it a name:");
             string name = Console.ReadLine();
@@ -82,45 +86,18 @@ namespace BornToMove
             int sweatrate = Convert.ToInt32(Console.ReadLine());
 
             //send to database
+            myMove.setExerRow(name, description, sweatrate);
         }
-
-            private static void rating()
+        //..............................................................................
+            private static void addRating(int id)
         {
             Console.WriteLine("From 1-5 what dit you thing of the exercise?");
             int rating = Convert.ToInt32(Console.ReadLine());
-            Console.Write("And from 1-5 how intense was it?");
+            Console.WriteLine("And from 1-5 how intense was it?");
             int score = Convert.ToInt32(Console.ReadLine());
-
             //send to database...
+            myMove.setRatingRow(id, score,rating);
         }
-
-
-        private static void connect()//old connect methode
-        {
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rvoph\\source\\repos\\educom-csharp-algorithm\\BornToMove\\born2move.mdf;Integrated Security=True");
-
-            string sql = "select id, name, description, sweatrate from exercises";
-            SqlCommand cmd = new SqlCommand(sql, conn);
-
-            conn.Open();
-
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine("{0} {1} {2} {3}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3));
-                }
-            }
-            else
-            {
-                Console.WriteLine("No data found");
-            }
-            conn.Close();
-
-
-        }
-
+        //..............................................................................
     }
 }
