@@ -36,9 +36,16 @@ namespace BornToMove
             return id_list;
         }
 
-        public void getName()
+        public int checkName(string name)
         {
-           //check name
+            SqlConnection conn = new SqlConnection(source);
+            string sql = "select COUNT(*) from exercises where name like @name";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            cmd.Parameters.AddWithValue("@name", name);
+            int nameCount = (int)cmd.ExecuteScalar();
+            conn.Close();
+            return nameCount;
         }
 
         //..............................................................................

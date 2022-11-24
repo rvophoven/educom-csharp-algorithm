@@ -49,6 +49,8 @@ namespace BornToMove
             int number = randomNumber.Next(1, randomId.Count);
             //get ids and choose a random one
             myMove.getExerRow(number);
+            Console.WriteLine("Finished? Then press enter.");
+            Console.ReadLine();
         }
         //..............................................................................
         private static int choose()
@@ -57,15 +59,15 @@ namespace BornToMove
             Console.WriteLine("What exercise do you wanna do?");
 
             Console.WriteLine("Nr:0 Name: create exercise");
-            myMove.getExer();
+            myMove.getExer();// print rest exercises
             Console.WriteLine("Type the number to start.");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            if(choice == 0)
+            if(choice == 0)//if 0 add exercise
             {
                 addExer();
             }
-            else
+            else//else get chosen exercise
             {
                 //show choice
                 myMove.getExerRow(choice);
@@ -79,14 +81,19 @@ namespace BornToMove
         {
             Console.WriteLine("Give it a name:");
             string name = Console.ReadLine();
-            //check name in database
+            int check = myMove.checkName(name); //check name in database
+            while (check != 0)//name found? type again
+            {
+                Console.WriteLine("Name already in use:");
+                name = Console.ReadLine();
+                check = myMove.checkName(name);
+            }
             Console.WriteLine("Give it a discription:");
             string description = Console.ReadLine();
             Console.WriteLine("Give it a sweatrate:");
             int sweatrate = Convert.ToInt32(Console.ReadLine());
 
-            //send to database
-            myMove.setExerRow(name, description, sweatrate);
+            myMove.setExerRow(name, description, sweatrate); //add to database
         }
         //..............................................................................
             private static void addRating(int id)
@@ -95,8 +102,7 @@ namespace BornToMove
             int rating = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("And from 1-5 how intense was it?");
             int score = Convert.ToInt32(Console.ReadLine());
-            //send to database...
-            myMove.setRatingRow(id, score,rating);
+            myMove.setRatingRow(id, score,rating);//add to database...
         }
         //..............................................................................
     }
