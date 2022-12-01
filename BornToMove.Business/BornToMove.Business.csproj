@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BornToMove.DAL2\BornToMove.DAL2.csproj" />
-    <ProjectReference Include="..\BornToMove.DAL\BornToMove.DAL.csproj" />
   </ItemGroup>
 
 </Project>

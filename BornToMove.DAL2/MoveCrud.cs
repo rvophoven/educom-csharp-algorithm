@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BornToMove.DAL2
 {
-    public class MoveCrud : MoveContext
+    public class MoveCrud
     {
         //..............................................................................
         public static void UpdateExercises(Exercise myExercise)

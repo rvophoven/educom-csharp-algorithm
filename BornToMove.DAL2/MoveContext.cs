@@ -12,14 +12,14 @@ namespace BornToMove.DAL2
         public DbSet<Exercise> exercises { get; set; }
         public DbSet<Rating> rating { get; set; }
         //..............................................................................
-        private string source = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rvoph\\source\\repos\\educom-csharp-algorithm\\BornToMove\\born2move.mdf;Integrated Security=True";
+        //private string source = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rvoph\\source\\repos\\educom-csharp-algorithm\\BornToMove2\\born2move.mdf;Integrated Security=True";
         private string source2 = "Server=(localdb)\\mssqllocaldb;Database=born2move;Trusted_Connection=True;";
         //..............................................................................
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(source);
+            builder.UseSqlServer(source2);
             base.OnConfiguring(builder);
-        }
+        } 
 
     }
 }
