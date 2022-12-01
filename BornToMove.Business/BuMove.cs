@@ -9,8 +9,8 @@ namespace BornToMove.Business
 {
     public class BuMove
     {
-        //MoveCrud();
-        public static void createExercise(Exercise myExercise)
+        
+        public static void CreateExercise(Exercise myExercise) // add exercise
         {
             if (myExercise.Name == "test")//test if name in database get new name
             {
@@ -19,36 +19,55 @@ namespace BornToMove.Business
             else// name correct send to database
             {
                 MoveCrud.CreateExercises(myExercise);
-            }
-            
+            }  
 
         }
-
-        public static void AddRating(Rating myRating)
+        //..............................................................................
+        public static void CreateRating(Rating myRating)// add rating
         {
-          
-                MoveCrud.AddRating(myRating);
-           
-
+                MoveCrud.CreateRating(myRating);
         }
-
-
-        public void randomMove()
+        //..............................................................................
+        public static List<Exercise> GetAllExercises() //get all exercises
         {
+            List<Exercise> get = new List<Exercise>();
+            get = MoveCrud.GetAllExercises();
+            return get;
+        }
+        //..............................................................................
+        public static List<Exercise> GetExerciseById(int myId)//get an exercise by id
+        {
+            List<Exercise> get = new List<Exercise>();
+            get = MoveCrud.GetExerciseById(myId);
+            return get;
+        }
+        //..............................................................................
+        public static List<Exercise> RandomExercise()
+        {
+            List<Exercise> ListExercise = new List<Exercise>();
+            Random randomNumber = new Random();// get a random number
+            ListExercise = MoveCrud.GetAllExercises();
+            //ListExercise = ListExercise.Select(p => new Exercise { Id = p.Id }).ToList();
+            int index = randomNumber.Next(ListExercise.Count);
+            ListExercise = GetExerciseById(index);
+
             //return random move
-            return;
+            return ListExercise;
         }
-
-        public void randomMoves()
+        //..............................................................................
+        public static bool CheckExercise(string name)// check if name valid
         {
-            //return random list moves
-            return;
-        }
-
-        public void checkMove()
-        {
-            // control move and save or if exist then update?
-            return;
+            bool check = false;
+            List<Exercise> ListExercises = new List<Exercise>();
+            ListExercises = GetAllExercises();
+            foreach (var get in ListExercises)
+            {
+                if (get.Name == name)
+                {
+                    check = true;
+                }
+            }
+            return check;
         }
 
     }

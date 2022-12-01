@@ -111,11 +111,5 @@
       <DependentUpon>born2move.mdf</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BornToMove.Business\BornToMove.Business.csproj">
-      <Project>{39e70b59-75ee-4c9e-963a-a3d1a767c304}</Project>
-      <Name>BornToMove.Business</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
