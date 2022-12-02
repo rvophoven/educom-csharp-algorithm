@@ -59,31 +59,31 @@ namespace BornToMove2
 
         }
         //..............................................................................
-        private static void AddRating(int Exer_id)//add rating to database
+        private static void AddRating(Exercise myExercise)//add rating to database
         {
             Console.WriteLine("From 1-5 what dit you thing of the exercise?");
-            int rating = NumberInput(1, 5);
+            double rating = NumberInput(1, 5);
             Console.WriteLine("And from 1-5 how intense was it?");
-            int score = NumberInput(1, 5);
-
-            Rating newRating = new Rating() { exer_id = Exer_id, intensity = score, ratings = rating };
-            BuMove.CreateRating(newRating);
+            double score = NumberInput(1, 5);
+            //Exercise ListExercise = BuMove.GetExerciseById(Exer_id);
+            Exercise test = myExercise;
+            ExerRating newRating = new ExerRating() { Exercise = test, Rating = score, Vote = rating };
+            BuMove.CreateExerRating(newRating);
         }
         //..............................................................................
         private static void ChoiceExercise(int choice)//show chosen exercise
         {   //comment: remove list parameter and just use exercise
-            List<Exercise> ListExercises = new List<Exercise>();
-            ListExercises = BuMove.GetExerciseById(choice);//get exercise by id
-            foreach (var get in ListExercises)//show exercise
-            {
-                Console.WriteLine("Name: {0}", get.Name);
-                Console.WriteLine("Description: {0}", get.description);
-                Console.WriteLine("Sweatrate: {0}", get.sweatrate);
-            }
+            Exercise OneExercise = new Exercise();
+            OneExercise = BuMove.GetExerciseById(choice);//get exercise by id
+
+                Console.WriteLine("Name: {0}", OneExercise.Name);
+                Console.WriteLine("Description: {0}", OneExercise.description);
+                Console.WriteLine("Sweatrate: {0}", OneExercise.sweatrate);
+
             Console.WriteLine("Finished? Then press enter.");
             Console.ReadLine();
 
-            AddRating(choice);
+            AddRating(OneExercise);
         }
         //..............................................................................
         private static void ListExercise()//show list of exercises
@@ -112,18 +112,16 @@ namespace BornToMove2
         //..............................................................................
         private static void RandomExercise()//get random exercise
         {   //comment: remove list parameter and just use exercise
-            List<Exercise> ListExercises = new List<Exercise>();
-            ListExercises = BuMove.RandomExercise();//get random exercise
-            foreach (var get in ListExercises)//display erxercise
-            {
-                Console.WriteLine("Name: {0}",get.Name);
-                Console.WriteLine("Description: {0}", get.description);
-                Console.WriteLine("Sweatrate: {0}", get.sweatrate);
-            }
+            Exercise OneExercise = new Exercise();
+            OneExercise = BuMove.RandomExercise();//get random exercise
+
+                Console.WriteLine("Name: {0}",OneExercise.Name);
+                Console.WriteLine("Description: {0}", OneExercise.description);
+                Console.WriteLine("Sweatrate: {0}", OneExercise.sweatrate);
+ 
             Console.WriteLine("Finished? Then press enter.");
             Console.ReadLine();
-            Exercise ListExercise = ListExercises.First();//get id from exercise
-            AddRating(ListExercise.Id);
+            AddRating(OneExercise);
         }
         //..............................................................................
         private static int NumberInput(int start, int end)//check readline input
@@ -147,6 +145,12 @@ namespace BornToMove2
             return Input;
         }
         //..............................................................................
+
+        private static void AddData() 
+        {
+
+        }
+
 
     }
 }

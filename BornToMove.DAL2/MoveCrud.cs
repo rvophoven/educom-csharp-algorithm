@@ -47,15 +47,24 @@ namespace BornToMove.DAL2
             }
         }
         //..............................................................................
-        public static List<Exercise> GetExerciseById(int myId)
+        public static void CreateExerRating(ExerRating myRating)
         {
-            List<Exercise> getExercise = new List<Exercise>();
+            Console.WriteLine("{0},{1},{2},{3}",myRating.Exercise.Id,myRating.Rating,myRating.Vote,myRating.Exercise.Name);
+            using (var db = new MoveContext())
+            {
+                db.ExerRating.Add(myRating);
+                db.SaveChanges();
+            }
+        }
+        //..............................................................................
+        public static Exercise GetExerciseById(int myId)
+        {
+            Exercise getExercise = new Exercise();
 
             using (var db = new MoveContext())
             {
-              getExercise =  db.exercises.Where(a => a.Id == myId).ToList();
+              getExercise =  db.exercises.First(a => a.Id == myId);
             }
-
             return getExercise;
         }
         //..............................................................................

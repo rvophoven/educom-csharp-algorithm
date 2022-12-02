@@ -28,6 +28,11 @@ namespace BornToMove.Business
                 MoveCrud.CreateRating(myRating);
         }
         //..............................................................................
+        public static void CreateExerRating(ExerRating myRating)// add rating
+        {
+            MoveCrud.CreateExerRating(myRating);
+        }
+        //..............................................................................
         public static List<Exercise> GetAllExercises() //get all exercises
         {
             List<Exercise> get = new List<Exercise>();
@@ -35,24 +40,24 @@ namespace BornToMove.Business
             return get;
         }
         //..............................................................................
-        public static List<Exercise> GetExerciseById(int myId)//get an exercise by id
+        public static Exercise GetExerciseById(int myId)//get an exercise by id
         {
-            List<Exercise> get = new List<Exercise>();
+            Exercise get = new Exercise();
             get = MoveCrud.GetExerciseById(myId);
             return get;
         }
         //..............................................................................
-        public static List<Exercise> RandomExercise()
+        public static Exercise RandomExercise()
         {
             List<Exercise> ListExercise = new List<Exercise>();
             Random randomNumber = new Random();// get a random number
             ListExercise = MoveCrud.GetAllExercises();
             //ListExercise = ListExercise.Select(p => new Exercise { Id = p.Id }).ToList();
             int index = randomNumber.Next(ListExercise.Count);
-            ListExercise = GetExerciseById(index);
+            Exercise exercise = GetExerciseById(index);
 
             //return random move
-            return ListExercise;
+            return exercise;
         }
         //..............................................................................
         public static bool CheckExercise(string name)// check if name valid
