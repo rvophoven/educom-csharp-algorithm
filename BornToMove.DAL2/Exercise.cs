@@ -14,7 +14,7 @@ namespace BornToMove.DAL2
 
             public int sweatrate { get; set; }
 
-            public ICollection<ExerRating>? Rating { get; set; }
+            public ICollection<ExerRating> Rating { get; set; }
 
     }
 

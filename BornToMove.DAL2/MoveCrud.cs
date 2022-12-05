@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 
 namespace BornToMove.DAL2
@@ -49,9 +51,11 @@ namespace BornToMove.DAL2
         //..............................................................................
         public static void CreateExerRating(ExerRating myRating)
         {
-            Console.WriteLine("{0},{1},{2},{3}",myRating.Exercise.Id,myRating.Rating,myRating.Vote,myRating.Exercise.Name);
+            //Console.WriteLine("{0},{1},{2},{3}",myRating.Exercise.Id,myRating.Rating,myRating.Vote,myRating.Exercise.Name);
             using (var db = new MoveContext())
             {
+                //myRating.Exercise = db.exercises.Find(myRating.Exercise.Id);
+                db.Attach(myRating.Exercise);
                 db.ExerRating.Add(myRating);
                 db.SaveChanges();
             }
@@ -91,7 +95,21 @@ namespace BornToMove.DAL2
 
             return getExercise;
         }
-       
+        //..............................................................................
+        public static List<double> GetAllRatingById(int myId)//get all ratings by id
+        {
+            List<double> getRating = new List<double>();
+            using (var db = new MoveContext())
+            {
+                getRating = db.ExerRating.Where(a => a.Exercise.Id == myId).Select(a => a.Rating).ToList();
+            }
+            if (getRating.Count == 0)//if empty make 0
+            {
+                getRating.Add(0);
+            }
+            return getRating; 
+        }
+
 
 
 

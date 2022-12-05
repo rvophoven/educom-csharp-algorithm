@@ -74,6 +74,14 @@ namespace BornToMove.Business
             }
             return check;
         }
+        //..............................................................................
+        public static double GetAvarageRatingById(int myId)//get average ratings by id
+        {
+            List<double> ListRatings = new List<double>();
+            var get = MoveCrud.GetAllRatingById(myId).Average();
+
+            return get;
+        }
 
     }
 }

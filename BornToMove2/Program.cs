@@ -65,9 +65,7 @@ namespace BornToMove2
             double rating = NumberInput(1, 5);
             Console.WriteLine("And from 1-5 how intense was it?");
             double score = NumberInput(1, 5);
-            //Exercise ListExercise = BuMove.GetExerciseById(Exer_id);
-            Exercise test = myExercise;
-            ExerRating newRating = new ExerRating() { Exercise = test, Rating = score, Vote = rating };
+            ExerRating newRating = new ExerRating() {Exercise = myExercise, Rating = score, Vote = rating };
             BuMove.CreateExerRating(newRating);
         }
         //..............................................................................
@@ -91,11 +89,12 @@ namespace BornToMove2
             List<Exercise> ListExercises = new List<Exercise>();
             Console.WriteLine("");
             Console.WriteLine("What exercise do you wanna do?");
-            Console.WriteLine("Nr:0 Name: create exercise");
+            Console.WriteLine("Nr: 0 Name: create exercise");
             ListExercises = BuMove.GetAllExercises();//get all exercises
             foreach (var get in ListExercises)//display all exercises
             {
-                Console.WriteLine("Nr: {0} Name: {1} Sweatrate: {2}", get.Id, get.Name,get.sweatrate);
+                double AverageRating = BuMove.GetAvarageRatingById(get.Id);
+                Console.WriteLine("Nr: {0} Name: {1} Sweatrate: {2} Average: {3}", get.Id, get.Name,get.sweatrate, AverageRating);
             }
 
             Console.WriteLine("Type number of exercise:");
@@ -146,8 +145,10 @@ namespace BornToMove2
         }
         //..............................................................................
 
-        private static void AddData() 
+        private static void AverageRating() 
         {
+
+
 
         }
 
